@@ -44,64 +44,64 @@ df[DIA] = pd.to_datetime(df[DIA])
 # convertir a float los valores de porcentaje de agua embalsada
 df[PORCENTAJE_EMBALSADO] = df[PORCENTAJE_EMBALSADO].apply(lambda x: float(x))
 
-# # obtener la lista de los embalses
-# embalses = df[ESTACION].unique().tolist()
+# obtener la lista de los embalses
+embalses = df[ESTACION].unique().tolist()
 
-# # generar la figura y la lista de gráficos
-# fig, axs = plt.subplots(nrows= totalFilas, ncols= totalColumnas)
+# generar la figura y la lista de gráficos
+fig, axs = plt.subplots(nrows= totalFilas, ncols= totalColumnas)
 
-# # estilo y título de la figura
-# fig.set_facecolor('papayawhip')
-# fig.set_edgecolor('orange')
-# fig.set_linewidth(2)
-# fig.suptitle('Estado de los embalses (% agua embalsada)', fontsize = 14)
+# estilo y título de la figura
+fig.set_facecolor('papayawhip')
+fig.set_edgecolor('orange')
+fig.set_linewidth(2)
+fig.suptitle('Estado de los embalses (% agua embalsada)', fontsize = 14)
 
-# for e in embalses:
-#   #título del gráfico, separando por líneas, si se puede, embalse y población
-#   titulo = e
-#   separacion = e.find('(')
+for e in embalses:
+  #título del gráfico, separando por líneas, si se puede, embalse y población
+  titulo = e
+  separacion = e.find('(')
 
-#   if (separacion > -1):
-#     titulo = e[0: separacion - 1] + "\n" + e[separacion:]
+  if (separacion > -1):
+    titulo = e[0: separacion - 1] + "\n" + e[separacion:]
   
-#   # obtener los datos de los últimos diez días para un embalse
-#   df10dias = df[df[ESTACION] == e].head(10)
+  # obtener los datos de los últimos diez días para un embalse
+  df10dias = df[df[ESTACION] == e].head(10)
 
-#   # para crear las marcas del eje de las fechas con los días
-#   locator = mdates.DayLocator()
+  # para crear las marcas del eje de las fechas con los días
+  locator = mdates.DayLocator()
 
-#   # formateo de las marcas del eje de las fechas
-#   formatter = mdates.ConciseDateFormatter(locator)
+  # formateo de las marcas del eje de las fechas
+  formatter = mdates.ConciseDateFormatter(locator)
 
-#   # asignación de marcas, formato y etiqueta del eje de las fechas
-#   axs[fila, columna].xaxis.set_major_locator(locator)
-#   axs[fila, columna].xaxis.set_major_formatter(formatter)
-#   axs[fila, columna].set_xlabel('Fechas')
+  # asignación de marcas, formato y etiqueta del eje de las fechas
+  axs[fila, columna].xaxis.set_major_locator(locator)
+  axs[fila, columna].xaxis.set_major_formatter(formatter)
+  axs[fila, columna].set_xlabel('Fechas')
 
-#   # se establecen los límites y la etiqueta para el eje y
-#   minimo = df10dias[PORCENTAJE_EMBALSADO].min()
-#   maximo = df10dias[PORCENTAJE_EMBALSADO].max()
-#   axs[fila, columna].set_ylim(minimo - 0.1, maximo + 0.1)
-#   axs[fila, columna].set_ylabel('%')
+  # se establecen los límites y la etiqueta para el eje y
+  minimo = df10dias[PORCENTAJE_EMBALSADO].min()
+  maximo = df10dias[PORCENTAJE_EMBALSADO].max()
+  axs[fila, columna].set_ylim(minimo - 0.1, maximo + 0.1)
+  axs[fila, columna].set_ylabel('%')
 
-#   # titulo y estilo para la rejilla de gráfico
-#   axs[fila, columna].set_title(titulo, fontsize = 10)
-#   axs[fila, columna].grid(linestyle = '-.', linewidth = 0.5, color = '.25')
+  # titulo y estilo para la rejilla de gráfico
+  axs[fila, columna].set_title(titulo, fontsize = 10)
+  axs[fila, columna].grid(linestyle = '-.', linewidth = 0.5, color = '.25')
 
-#   # dibujar los datos
-#   axs[fila, columna].plot(df10dias[DIA], df10dias[PORCENTAJE_EMBALSADO], marker="o", linestyle="dashed")
+  # dibujar los datos
+  axs[fila, columna].plot(df10dias[DIA], df10dias[PORCENTAJE_EMBALSADO], marker="o", linestyle="dashed")
 
-#   # actulizar la columna y fila para acceder al siguiente gráfico
-#   columna = columna + 1
-#   if (columna == 3):
-#     columna = 0
-#     fila = fila + 1
+  # actulizar la columna y fila para acceder al siguiente gráfico
+  columna = columna + 1
+  if (columna == 3):
+    columna = 0
+    fila = fila + 1
   
-# # establecer la etiqueta de la figura y mostrarla con los gráficos
-# fig.set_label('Agua embalsamada (%)')
-# plt.tight_layout()
-# plt.show()
-# # plt.savefig('grafico.png')
+# establecer la etiqueta de la figura y mostrarla con los gráficos
+fig.set_label('Agua embalsamada (%)')
+plt.tight_layout()
+plt.show()
+# plt.savefig('grafico.png')
 
 #gráficos de barras con % por embalse
 
